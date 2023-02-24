@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect, useReducer } from 'react';
+import { Text, View, TextInput, TouchableOpacity,
+        Button, ActivityIndicator, ScrollView, 
+        SafeAreaView, Alert, StyleSheet } from 'react-native';
 
-export default function App() {
+const app = ()=> {
+  const [valor, setValor] = useState('Valor Padrão');
+  const [clicado, setClicado] = useState(false);
+  useEffect(()=>{
+    Alert.alert('Independente se o botão foi clicado ou não')
+    if(clicado==true){
+      setValor('O botão foi clicado');
+    } 
+    else{
+      setValor('O estado do botão está falso');
+    }
+  }, [clicado]);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      <Text>Fech API - ViaCEP</Text>
+      <Text>{valor}</Text>
+      <Button onPress={()=>{(clicado==false) ? setClicado(true) : setClicado(false)}} 
+        title={'Clique aqui para alterar o valor'}
+      />
     </View>
-  );
-}
+  )
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default app;
+
